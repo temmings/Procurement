@@ -33,9 +33,7 @@ namespace Procurement.Controls
         {
             InitializeComponent();
             absolutely = getAbolutePositions();
-            this.PreviewKeyDown += new KeyEventHandler(Equipped_PreviewKeyDown);
             this.Loaded += new RoutedEventHandler(Equipped_Loaded);
-            
         }
 
         public static void OnCharacterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -84,6 +82,8 @@ namespace Procurement.Controls
 
         void Equipped_Loaded(object sender, RoutedEventArgs e)
         {
+            var window = Window.GetWindow(this);
+            window.PreviewKeyDown += new KeyEventHandler(Equipped_PreviewKeyDown);
             render();
             this.Loaded -= Equipped_Loaded;
         }
@@ -111,10 +111,7 @@ namespace Procurement.Controls
                     childGrid.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                     childGrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
-                    if (!showAlts && isAlt)
-                        continue;
-
-                    if (showAlts && !isAlt)
+                    if (showAlts != isAlt)
                         continue;
                 }
 
